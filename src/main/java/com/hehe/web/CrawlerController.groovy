@@ -3,7 +3,6 @@ package com.hehe.web
 import com.hehe.pageProcessor.JdPageProcessor
 import com.hehe.pageProcessor.base.BasePageProcessor
 import com.hehe.service.IBookService
-import com.hehe.webmagic.SeleniumDownloader
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -29,11 +28,13 @@ class CrawlerController {
     def start() {
         JdPageProcessor.bookService = bookService
         LOG.info('开始爬虫...')
+
+
         Spider.create(new JdPageProcessor())
                 .thread(1)
-//                .addUrl('https://item.jd.com/11264059.html')
+//                .addUrl('https://item.jd.com/10595593.html')
                 .addUrl(BasePageProcessor.defaultUrl)
-                .setDownloader(new SeleniumDownloader("/Users/hehe/program/chromedriver"))
+//                .setDownloader(new SeleniumDownloader("/Users/hehe/program/chromedriver"))
                 .runAsync()
 //        return "爬取结束"
 

@@ -1,6 +1,6 @@
 package com.hehe.pageProcessor.base
 
-import com.hehe.model.Book
+import com.hehe.model.BookWithBLOBs
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import us.codecraft.webmagic.Page
@@ -12,7 +12,8 @@ import us.codecraft.webmagic.processor.PageProcessor
  */
 abstract class BasePageProcessor implements PageProcessor {
     Document document
-    Book book
+    BookWithBLOBs book=new BookWithBLOBs()
+    String currentUrl
 
     static String defaultUrl = 'https://list.jd.com/list.html?cat=1713,3258'
     String listUrl      //列表页
@@ -23,12 +24,17 @@ abstract class BasePageProcessor implements PageProcessor {
     int pageStart; //抓取的列表初始页码
     int pageEnd    //抓取的列表尾页码
 
+
+
+
     @Override
     void process(Page page) {
-
+        currentUrl = page.getUrl().toString().trim()
         document = Jsoup.parse(page.getHtml().toString());
+//        (listUrl, detailUrl) = setTypeOfUrl()
+
         //初始URL，添加所有列表url
-        if (page.getUrl().toString().trim() == defaultUrl) {
+        if (currentUrl == defaultUrl) {
             (listUrl, detailUrl) = setTypeOfUrl()
 
 //            setBaseUrlAndSum().each {

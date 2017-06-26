@@ -1,7 +1,7 @@
 package com.hehe.service.impl
 
 import com.hehe.dao.BookMapper
-import com.hehe.model.Book
+import com.hehe.model.BookWithBLOBs
 import com.hehe.service.IBookService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -18,7 +18,7 @@ class BookService implements IBookService {
     private BookMapper bookMapper
 
     @Override
-    boolean insertBook(Book book) {
+    boolean insertBook(BookWithBLOBs book) {
         book.createTime = new Timestamp(System.currentTimeMillis())
         return bookMapper.insert(book)
     }
