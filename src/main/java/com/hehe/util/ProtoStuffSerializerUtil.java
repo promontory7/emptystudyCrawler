@@ -51,7 +51,7 @@ public class ProtoStuffSerializerUtil {
 		T instance = null;
 		try {
 			instance = targetClass.newInstance();
-		} catch (InstantiationException | IllegalAccessException e) {
+		} catch ( Exception e) {
 			throw new RuntimeException("反序列化过程中依据类型创建对象失败!", e);
 		}
 		Schema<T> schema = RuntimeSchema.getSchema(targetClass);

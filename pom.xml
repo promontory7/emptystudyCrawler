@@ -256,7 +256,7 @@
 
   </dependencies>
   <build>
-    <finalName>${project.groupId}_${project.version}</finalName>
+    <finalName>${project.groupId}</finalName>
     <resources>
       <resource>
         <!--directory: 资源所在的位置 -->
@@ -269,10 +269,10 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-        </configuration>
+        <!--<configuration>-->
+          <!--<source>1.8</source>-->
+          <!--<target>1.8</target>-->
+        <!--</configuration>-->
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -38,7 +38,7 @@
 
     <!--扫描web相关的controller-->
     <context:component-scan base-package="com.hehe.web"/>
-    <context:component-scan base-package="com.hehe.pageProcessor"/>
+    <!--<context:component-scan base-package="com.hehe.pageProcessor"/>-->
 
 
     <!--全局异常捕捉 -->

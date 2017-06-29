@@ -1,6 +1,5 @@
 package com.hehe.service
 
-import com.hehe.model.Book
 import com.hehe.model.BookWithBLOBs
 
 /**
@@ -9,5 +8,8 @@ import com.hehe.model.BookWithBLOBs
 interface IBookService {
 
     boolean insertBook(BookWithBLOBs book);
+    boolean updateBookByISBN(BookWithBLOBs book)
+    List<String> getItemIDwithoutPrice()
+    boolean updatePriceByItemID(BookWithBLOBs book)
 
 }

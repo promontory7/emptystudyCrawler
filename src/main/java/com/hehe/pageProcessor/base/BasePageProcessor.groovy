@@ -12,7 +12,7 @@ import us.codecraft.webmagic.processor.PageProcessor
  */
 abstract class BasePageProcessor implements PageProcessor {
     Document document
-    BookWithBLOBs book=new BookWithBLOBs()
+    BookWithBLOBs book = new BookWithBLOBs()
     String currentUrl
 
     static String defaultUrl = 'https://list.jd.com/list.html?cat=1713,3258'
@@ -23,8 +23,6 @@ abstract class BasePageProcessor implements PageProcessor {
     String baseUrl;//列表网址（含页码符号）
     int pageStart; //抓取的列表初始页码
     int pageEnd    //抓取的列表尾页码
-
-
 
 
     @Override
@@ -61,9 +59,12 @@ abstract class BasePageProcessor implements PageProcessor {
 
     @Override
     Site getSite() {
-        Site.me().setDomain("jd.com")
+        Site.me()
+//                .addHeader('Proxy-Authorization', 'Basic ' + 'SEo4OVZLMjQyMDNHVTVWRDozQ0Q5ODgyQkVGNjAzRDMz')
+//                .setCharset('GB2312')
+                .setDomain("jd.com")
                 .setRetryTimes(3)
-                .setTimeOut(8000)
+                .setTimeOut(10000)
                 .setSleepTime(0)
 
     }
