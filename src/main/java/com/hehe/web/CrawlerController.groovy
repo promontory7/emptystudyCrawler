@@ -70,7 +70,7 @@ class CrawlerController {
 
     @RequestMapping(value = '/price', method = RequestMethod.GET)
     @ResponseBody
-    def setprice(@RequestParam(value = 'cyclerTime',defaultValue = '10')int cyclerTime) {
+    def setprice(@RequestParam(value = 'cyclerTime', defaultValue = '3') int cyclerTime) {
 
         //https://p.3.cn/prices/mgets?skuIds=J_11722862,J_12074267,
 
@@ -90,7 +90,7 @@ class CrawlerController {
 
             //每一次请求
             stringBuffer = new StringBuffer('https://p.3.cn/prices/mgets?skuIds=')
-            for (int i = 0; m * oneTime + i < withoutPriceList.size(); i++) {
+            for (int i = 0; i < oneTime && i < withoutPriceList.size(); i++) {
                 stringBuffer.append('J_').append(withoutPriceList.get(m * oneTime + i)).append(',')
             }
 
@@ -121,14 +121,14 @@ class CrawlerController {
                 e.printStackTrace()
                 LOG.error('获得价格失败 url：' + stringBuffer)
             } finally {
-                Thread.sleep(5000)
+//                Thread.sleep(100)
             }
 
         }
-        if (cyclerTime<1){
+        if (cyclerTime < 1) {
             return 'cycler out'
         }
-        setprice(cyclerTime-1)
+        setprice(cyclerTime - 1)
 
 
     }
