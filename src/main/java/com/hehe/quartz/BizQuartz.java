@@ -30,23 +30,23 @@ public class BizQuartz {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
-    /**
-     * 用户自动加积分
-     * 每天9点到17点每过1分钟所有用户加一次积分
-     */
-    @Scheduled(cron = "0 0/1 9-17 * * ? ")
-    public void addUserScore() {
-        LOG.info("@Scheduled--------addUserScore()");
-//		userDao.addScore(10);
-    }
-
-    /**
-     * 每隔5分钟定时清理缓存
-     */
-    @Scheduled(cron = "0 0/5 * * * ? ")
-    public void cacheClear() {
-        LOG.info("@Scheduled-------cacheClear()");
-//		cache.clearCache();
-    }
+//    /**
+//     * 用户自动加积分
+//     * 每天9点到17点每过1分钟所有用户加一次积分
+//     */
+//    @Scheduled(cron = "0 0/1 9-17 * * ? ")
+//    public void addUserScore() {
+//        LOG.info("@Scheduled--------addUserScore()");
+////		userDao.addScore(10);
+//    }
+//
+//    /**
+//     * 每隔5分钟定时清理缓存
+//     */
+//    @Scheduled(cron = "0 0/5 * * * ? ")
+//    public void cacheClear() {
+//        LOG.info("@Scheduled-------cacheClear()");
+////		cache.clearCache();
+//    }
 
 }
