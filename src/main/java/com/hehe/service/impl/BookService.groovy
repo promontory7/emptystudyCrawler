@@ -36,4 +36,8 @@ class BookService implements IBookService  {
         book.modifyTime =  new Timestamp(System.currentTimeMillis())
         return bookMapper.updatePriceByItemID(book)
     }
+
+    List<String> getAllUrls(){
+        return  bookMapper.selectAllUrl();
+    }
 }

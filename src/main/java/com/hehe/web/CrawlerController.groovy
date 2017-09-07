@@ -56,8 +56,14 @@ class CrawlerController {
 //        httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(proxies));
 
         LOG.info('开始爬虫...')
+
+        //获取数据库中已经存在怕去过的Url
+        println "获取数据库中已经存在的Url"
+        BasePageProcessor.existUrls = bookService.getAllUrls();
+        println "获取数据库中已经存在的Url成功！一共有 " + BasePageProcessor.existUrls.size()
+
         Spider.create(new JdPageProcessor())
-                .thread(1)
+                .thread(2)
 //                .setDownloader(httpClientDownloader)
 //                .addUrl('https://item.jd.com/10595593.html')
                 .addUrl(BasePageProcessor.defaultUrl)
@@ -131,5 +137,12 @@ class CrawlerController {
         setprice(cyclerTime - 1)
 
 
+    }
+
+    @RequestMapping(value = '/urls', method = RequestMethod.GET)
+    @ResponseBody
+    def getAllUrl() {
+        List<String> urls = bookService.getAllUrls();
+        return urls
     }
 }

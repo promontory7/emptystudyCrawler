@@ -68,4 +68,6 @@ public interface BookMapper {
 
     int updatePriceByItemID(BookWithBLOBs record);
 
+    List<String> selectAllUrl();
+
 }

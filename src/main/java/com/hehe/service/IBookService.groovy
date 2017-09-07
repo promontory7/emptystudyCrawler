@@ -11,5 +11,6 @@ interface IBookService {
     boolean updateBookByISBN(BookWithBLOBs book)
     List<String> getItemIDwithoutPrice()
     boolean updatePriceByItemID(BookWithBLOBs book)
+    List<String> getAllUrls()
 
 }

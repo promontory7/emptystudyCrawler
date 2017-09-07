@@ -24,6 +24,9 @@ abstract class BasePageProcessor implements PageProcessor {
     int pageStart; //抓取的列表初始页码
     int pageEnd    //抓取的列表尾页码
 
+    //已经抓取的 Url
+    static List<String> existUrls;
+
 
     @Override
     void process(Page page) {
@@ -35,16 +38,9 @@ abstract class BasePageProcessor implements PageProcessor {
         if (currentUrl == defaultUrl) {
             (listUrl, detailUrl) = setTypeOfUrl()
 
-//            setBaseUrlAndSum().each {
-//                (baseUrl, pageStart, pageEnd) = it
-//                if (baseUrl && pageStart && pageEnd) {
-//                    pageStart.upto(pageEnd) {
-//                        page.addTargetRequest(baseUrl.replace(pageNumSymbol, it + ""))
-//                    }
-//                }
-//            }
             List<String> lists = setBaseUrlAndSum()
             page.addTargetRequests(lists)
+
 
         } else if (page.getUrl().regex(listUrl).match()) {
             //列表页处理
@@ -63,7 +59,7 @@ abstract class BasePageProcessor implements PageProcessor {
 //                .addHeader('Proxy-Authorization', 'Basic ' + 'SEo4OVZLMjQyMDNHVTVWRDozQ0Q5ODgyQkVGNjAzRDMz')
 //                .setCharset('GB2312')
                 .setDomain("jd.com")
-                .setRetryTimes(3)
+                .setRetryTimes(2)
                 .setTimeOut(10000)
                 .setSleepTime(0)
 
