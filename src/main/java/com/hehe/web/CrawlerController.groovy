@@ -63,7 +63,7 @@ class CrawlerController {
         println "获取数据库中已经存在的Url成功！一共有 " + BasePageProcessor.existUrls.size()
 
         Spider.create(new JdPageProcessor())
-                .thread(2)
+                .thread(6)
 //                .setDownloader(httpClientDownloader)
 //                .addUrl('https://item.jd.com/10595593.html')
                 .addUrl(BasePageProcessor.defaultUrl)

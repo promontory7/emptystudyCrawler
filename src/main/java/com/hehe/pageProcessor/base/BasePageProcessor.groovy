@@ -11,18 +11,15 @@ import us.codecraft.webmagic.processor.PageProcessor
  * 处理基础类
  */
 abstract class BasePageProcessor implements PageProcessor {
-    Document document
-    BookWithBLOBs book = new BookWithBLOBs()
-    String currentUrl
 
     static String defaultUrl = 'https://list.jd.com/list.html?cat=1713,3258'
     String listUrl      //列表页
     String detailUrl    //详情页
 
-    String pageNumSymbol = 'pagaNumber' //页码符号
-    String baseUrl;//列表网址（含页码符号）
-    int pageStart; //抓取的列表初始页码
-    int pageEnd    //抓取的列表尾页码
+//    String pageNumSymbol = 'pagaNumber' //页码符号
+//    String baseUrl;//列表网址（含页码符号）
+//    int pageStart; //抓取的列表初始页码
+//    int pageEnd    //抓取的列表尾页码
 
     //已经抓取的 Url
     static List<String> existUrls;
@@ -30,15 +27,15 @@ abstract class BasePageProcessor implements PageProcessor {
 
     @Override
     void process(Page page) {
-        currentUrl = page.getUrl().toString().trim()
-        document = Jsoup.parse(page.getHtml().toString());
+        String currentUrl = page.getUrl().toString().trim()
+        Document document = Jsoup.parse(page.getHtml().toString());
 //        (listUrl, detailUrl) = setTypeOfUrl()
 
         //初始URL，添加所有列表url
         if (currentUrl == defaultUrl) {
             (listUrl, detailUrl) = setTypeOfUrl()
 
-            List<String> lists = setBaseUrlAndSum()
+            List<String> lists = setBaseUrlAndSum(document)
             page.addTargetRequests(lists)
 
 
@@ -47,7 +44,7 @@ abstract class BasePageProcessor implements PageProcessor {
             listPrecess(page)
         } else if (page.getUrl().regex(detailUrl).match()) {
             //详情页处理
-            detailProcess(page)
+            detailProcess(page,document)
         } else {
             println "无法处理网址类型  url $page.url"
         }
@@ -59,8 +56,8 @@ abstract class BasePageProcessor implements PageProcessor {
 //                .addHeader('Proxy-Authorization', 'Basic ' + 'SEo4OVZLMjQyMDNHVTVWRDozQ0Q5ODgyQkVGNjAzRDMz')
 //                .setCharset('GB2312')
                 .setDomain("jd.com")
-                .setRetryTimes(2)
-                .setTimeOut(10000)
+                .setRetryTimes(3)
+                .setTimeOut(8000)
                 .setSleepTime(0)
 
     }
@@ -72,7 +69,7 @@ abstract class BasePageProcessor implements PageProcessor {
      * pageStart 抓取的列表初始页码
      * pageEnd   抓取的列表尾页码
      */
-    abstract List<String> setBaseUrlAndSum()
+    abstract List<String> setBaseUrlAndSum(Document document)
 
     /**
      * 设置 列表URL 和 详情URL 的模板
@@ -82,12 +79,12 @@ abstract class BasePageProcessor implements PageProcessor {
     /**
      * 列表页处理
      */
-    abstract def listPrecess(Page page)
+    synchronized abstract def listPrecess(Page page)
 
     /**
      * 详情页处理
      */
-    abstract def detailProcess(Page page)
+    synchronized abstract def detailProcess(Page page,Document document)
 
     /**
      * 解析提取字段信息
