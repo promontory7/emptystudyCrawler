@@ -44,7 +44,7 @@ abstract class BasePageProcessor implements PageProcessor {
             listPrecess(page)
         } else if (page.getUrl().regex(detailUrl).match()) {
             //详情页处理
-            detailProcess(page,document)
+            detailProcess(page, document)
         } else {
             println "无法处理网址类型  url $page.url"
         }
@@ -79,12 +79,12 @@ abstract class BasePageProcessor implements PageProcessor {
     /**
      * 列表页处理
      */
-    synchronized abstract def listPrecess(Page page)
+    abstract void listPrecess(Page page)
 
     /**
      * 详情页处理
      */
-    synchronized abstract def detailProcess(Page page,Document document)
+    abstract void detailProcess(Page page, Document document)
 
     /**
      * 解析提取字段信息
