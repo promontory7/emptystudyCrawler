@@ -1,6 +1,5 @@
 package com.hehe.pageProcessor.base
 
-import com.hehe.model.BookWithBLOBs
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import us.codecraft.webmagic.Page
@@ -12,7 +11,7 @@ import us.codecraft.webmagic.processor.PageProcessor
  */
 abstract class BasePageProcessor implements PageProcessor {
 
-    static String defaultUrl = 'https://list.jd.com/list.html?cat=1713,3258'
+    static final String defaultUrl = 'https://list.jd.com/list.html?cat=1713,3258'
     String listUrl      //列表页
     String detailUrl    //详情页
 
@@ -27,26 +26,28 @@ abstract class BasePageProcessor implements PageProcessor {
 
     @Override
     void process(Page page) {
-        String currentUrl = page.getUrl().toString().trim()
-        Document document = Jsoup.parse(page.getHtml().toString());
+        synchronized (this) {
+            String currentUrl = page.getUrl().toString().trim()
+            Document document = Jsoup.parse(page.getHtml().toString());
 //        (listUrl, detailUrl) = setTypeOfUrl()
 
-        //初始URL，添加所有列表url
-        if (currentUrl == defaultUrl) {
-            (listUrl, detailUrl) = setTypeOfUrl()
+            //初始URL，添加所有列表url
+            if (currentUrl == defaultUrl) {
+                (listUrl, detailUrl) = setTypeOfUrl()
 
-            List<String> lists = setBaseUrlAndSum(document)
-            page.addTargetRequests(lists)
+                List<String> lists = setBaseUrlAndSum(document)
+                page.addTargetRequests(lists)
 
 
-        } else if (page.getUrl().regex(listUrl).match()) {
-            //列表页处理
-            listPrecess(page)
-        } else if (page.getUrl().regex(detailUrl).match()) {
-            //详情页处理
-            detailProcess(page, document)
-        } else {
-            println "无法处理网址类型  url $page.url"
+            } else if (page.getUrl().regex(listUrl).match()) {
+                //列表页处理
+                listPrecess(page)
+            } else if (page.getUrl().regex(detailUrl).match()) {
+                //详情页处理
+                detailProcess(page, document)
+            } else {
+                println "无法处理网址类型  url $page.url"
+            }
         }
     }
 

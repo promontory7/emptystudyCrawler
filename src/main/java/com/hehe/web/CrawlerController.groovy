@@ -37,24 +37,6 @@ class CrawlerController {
     def start() {
         JdPageProcessor.bookService = bookService
 
-        LOG.info('获取代理中')
-//        String proxyUrl = 'http://api.xicidaili.com/free2016.txt'
-        //大象代理
-//        String proxyUrl ='http://tvp.daxiangdaili.com/ip/?tid=559048042514205&num=50&delay=3&category=2&protocol=https&foreign=none'
-//        String responseContent = HttpclientUtil.get(proxyUrl)
-//        BufferedReader bufferedReader = new BufferedReader(new StringReader(responseContent))
-//        String str = ''
-//        ArrayList<Proxy> proxyList =new ArrayList<>()
-//        while ((str = bufferedReader.readLine()) != null) {
-//            println(str)
-//            String[] strings =str.split(':')
-//            proxyList.add(new Proxy(strings[0],Integer.parseInt(strings[1])))
-//        }
-//        Proxy[] proxies =proxyList.toArray()
-//
-//        HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
-//        httpClientDownloader.setProxyProvider(SimpleProxyProvider.from(proxies));
-
         LOG.info('开始爬虫...')
 
         //获取数据库中已经存在怕去过的Url
